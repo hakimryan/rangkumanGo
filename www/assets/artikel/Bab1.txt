@@ -1,0 +1,9 @@
+Apa yang mesti disiapkan?
+
+Google telah meluncurkan bahasa pemrograman baru yang diberi nama "Go." Go memiliki fitur yang lengkap dan syntax yang sederhana. Go dapat dijalankan di berbagai platform. Bahasa ini fokus pada prinsip "Good software engineering," sehingga cocok untuk orang yang pertama kali belajar pemrograman.
+
+Siapkan file-filenya
+Tools untuk Go dapat diunduh di http://www.golang.org. Di sana, anda dapat mencari cara untuk menginstal Go dengan berbagai cara. Cara termudah yaitu menginstal file setupnya sesuai dengan spesifikasi komputer yang anda gunakan.
+Untuk menulis kode, kita membutuhkan text editor. Notepad bawaan Windows juga sudah cukup untuk menulis kode, tetapi banyak text editor lain yang dikhususkan untuk pemrograman seperti Notepad++, Sublime, Scite, dan Atom yang dapat anda download di internet.
+
+

@@ -1,0 +1,87 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>Progam Pertama Anda</h1>
+<p>
+Mari kita buat program "Hello World" dengan menggunakan bahasa Go. Pertama-tama, kita buat folder baru untuk menyimpan program kita. Di dalam command prompt (ketik Win + R -> cmd -> enter) ketik perintah berikut
+</p>
+<code>
+	<pre>
+		D:\
+		mkdir apps
+		cd apps
+		mkdir golang
+		cd golang
+		mkdir src
+		cd src
+		mkdir hello
+	</pre>	
+</code>
+
+<p>Gunakan text editor anda (boleh pakai Notepad) untuk mengetik program berikut</p>
+<code>
+	<pre>
+		package main
+
+		import "fmt"
+
+		func main() {
+			fmt.Println("Hello, world.")
+		}
+	</pre>	
+</code>
+
+<p>Simpan di folder D:\apps\golang\src\hello, beri nama hello.go<br>
+
+Kembali ke command prompt, arahkan direktori ke D:\apps\golang\src\hello dengan mengetik</p>
+<code>
+	<pre>
+		D:
+		cd apps\golang\src\hello
+	</pre>
+	
+</code>
+<p>Kemudian kita jalankan program hello.go dengan mengetik perintah di command prompt</p>
+<code>go run hello.go</code>
+
+<p>Pada command prompt akan muncul tulisan "Hello, world." (tanpa tanda petik). Perintah go run akan meng-compile hello.go dan menyimpannya di direktori sementara lalu menjalankan aplikasinya. Jika di command prompt tidak muncul tulisan "Hello, world." maka ada kesalahan dalam penulisan kode. Compiler Go akan menampilkan baris mana yang salah.</p>
+
+<h2>Bagaimana syntax pemrograman Go?</h2>
+<p>Kode Go dibaca dari atas ke bawah, kiri ke kanan. Baris pertama dari program hello.go</p>
+<code>package main</code>
+
+<p>merupakan deklarasi package. Setiap program Go harus diawali dengan deklarasi package. Package merupakan cara Go untuk mengorganisasi dan memanfaatkan kode. Ada dua tipe program Go, yaitu executables dan libraries. Program executables merupakan program yang dapat dijalankan langsung. Program libraries merupakan kumpulan kode yang dikemas sehingga dapat digunakan untuk program lain.<br>
+
+Baris selanjutnya merupakan baris kosong. Komputer merepresentasikan baris kosong dengan simbol tertentu. Baris baru, spasi, dan tab disebut dengan whitespace. Go tidak mempedulikan whitespace. Kita menggunakan whitespace supaya mudah dibaca.<br>
+
+Kemudian baris selanjutnya:</p>
+<code>import "fmt"</code>
+
+<p>keyword import merupakan cara untuk memanfaatkan kode dari package lain. Package fmt (kepanjangan dari format) menangani format untuk input dan output.Ingat bahwa fmt selalu di dalam tanda petik ganda.<br>
+
+Untuk meng-comment suatu baris, kita gunakan tanda // di awal baris tersebut. Selain itu, kumpulan teks yang di-comment bisa dimasukkan di dalam lingkungan /* */<br>
+
+Setelah itu ada deklarasi:</p>
+<code>
+	<pre>
+		func main() {
+			fmt.Printf("Hello, world.\n")
+		}
+	</pre>	
+</code>
+
+<p>Function merupakan bagian yang membangun suatu program. Fungsi mempunyai input, output, dan kumpulan langkah-langkah yang disebut statements yang dieksekusi secara berurutan. Semua fungsi diawali dengan keyword func diikuti dengan nama fungsi (mis. main), urutan statement harus berada di dalam kurung { }.<br>
+
+Bagian terakhir dari program kita adalah:</p>
+
+<code>fmt.Println("Hello, world.")</code>
+
+<p>merupakan statement yang terdiri dari tiga komponen. Pertama kita mengakses fungsi lain di dalam package fmt yang dinamakan Println. Kemudian kita membuat suatu string yang memuat Hello, world. dan kemudian mengeksekusi fungsinya.
+
+Untuk melihat keterangan dari Println, kita dapat mengetik di command prompt</p>
+
+<code>godoc fmt Println</code>
+</body>
+</html>

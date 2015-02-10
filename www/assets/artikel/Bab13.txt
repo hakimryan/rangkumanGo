@@ -1,0 +1,239 @@
+Package Utama
+
+Strings
+
+Penggunaan package strings contohnya:
+
+package main 
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	fmt.Println(
+		strings.Contains("test", "es"), // true
+		strings.Count("test", "t"), // 2
+		strings.HasPrefix("test", "te"), // true
+		strings.HasSuffix("test", "st"), // true
+		strings.Index("test", "e"), // 1
+		strings.Join([]string{"a","b"}, "-"), //a-b
+		strings.Repeat("a", 5), //aaaaa
+		strings.Replace("aaa", "a", "b", 2), //bba
+		strings.Split("a-b-c-d-e", "-"), // []string{"a","b","c","d","e"}
+		strings.ToLower("TEST"), // "test"
+		strings.ToUpper("test"), //"TEST"
+	)
+}
+
+Input/Output (io)
+
+Fungsi di dalam io yaitu Read, Write, Copy
+
+Files & Folders (os)
+
+Untuk membuka file, ada fungsi Open, contoh penggunaannya:
+
+package main 
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	file, err := os.Open("test.txt")
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	stat, err := file.Stat()
+	if err != nil {
+		return
+	}
+
+	bs := make([]byte, stat.Size())
+	_, err = file.Read(bs)
+	if err != nil {
+		return
+	}
+
+	str := string(bs)
+	fmt.Println(str)
+}
+
+Errors
+
+Error merupakan tipe yang ada di Go. Contoh penggunaanya
+
+package main 
+
+import (
+	"fmt"
+	"errors"
+)
+
+func main() {
+	err := errors.New("error message")
+	fmt.Println(err)
+}
+
+Containers & Sort
+
+List
+
+Contoh penggunaanya:
+
+package main 
+
+import ("fmt"; "container/list")
+
+func main() {
+	var x list.List
+	x.PushBack(1)
+	x.PushBack(2)
+	x.PushBack(3)
+
+	for e := x.Front(); e != nil; e=e.Next() {
+		fmt.Println(e.Value.(int))
+	}
+}
+
+Sort
+
+Contoh penggunaannya:
+
+package main 
+
+import ("fmt"; "sort")
+
+type Person struct {
+	Name string
+	Age int
+}
+
+type ByName []Person
+
+func (this ByName) Len() int {
+	return len(this)
+}
+func (this ByName) Less(i, j int) bool {
+	return this[i].Name < this[j].Name
+}
+func (this ByName) Swap(i, j int) {
+	this[i], this[j] = this[j], this[i]
+}
+
+func main() {
+	kids := []Person{
+		{"Ujang", 9},
+		{"Jajang", 10},
+	}
+	sort.Sort(ByName(kids))
+	fmt.Println(kids)
+}
+
+Server
+
+Contoh penggunaannya:
+
+package main 
+
+import (
+	"encoding/gob"
+	"fmt"
+	"net"
+)
+
+func server() {
+	ln, err := net.Listen("tcp", ":9999")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for {
+		c, err := ln.Accept()
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
+		go handleServerConnection(c)
+	}
+}
+
+func handleServerConnection(c net.Conn) {
+	var msg string
+	err := gob.NewDecoder(c).Decode(&msg)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Received", msg)
+	}
+
+	c.Close()
+}
+
+func client() {
+	c, err := net.Dial("tcp", "127.0.0.1:9999")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	msg := "Hello World"
+	fmt.Println("Sending", msg)
+	err = gob.NewEncoder(c).Encode(msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	c.Close()
+}
+
+func main() {
+	go server()
+	go client()
+
+	var input string
+	fmt.Scanln(&input)
+}
+
+HTTP
+
+Contoh penggunaanya:
+
+package main 
+
+import ("net/http"; "io")
+
+func hello(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set(
+		"Content-Type",
+		"text/html",
+	)
+	io.WriteString(
+		res,
+		`<doctype html>
+<html>
+	<head>
+		<title>Hello World</title>
+	</head>
+	<body>
+		Hello World!
+	</body>
+</html>`,
+	)
+}
+
+func main() {
+	http.HandleFunc("/hello", hello)
+	http.ListenAndServe(":9090", nil)
+}
+
+Lalu jalankan melalui command prompt dengan mengetik go run namafile.go
+
+Buka browser, ketik di adress bar localhost:9090/hello. Akan tampil tulisan Hello World! di browser anda.
+

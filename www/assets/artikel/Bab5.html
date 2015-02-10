@@ -1,0 +1,153 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Control Structure</h1>
+
+	<p>Setelah mengetahui cara penggunaan variabel, sekarang kita akan mempelajari cara penggunaan control structure dalam Go. Contoh kita akan menulis angka dari 1 sampai 5.</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	fmt.Println(1)
+	fmt.Println(2)
+	fmt.Println(3)
+	fmt.Println(4)
+	fmt.Println(5)
+}
+		</pre>
+		
+	</code>
+
+	<p>atau</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	fmt.Println(`1
+2
+3
+4
+5`)
+}
+		</pre>
+		
+	</code>
+
+	<p>Untuk perintah berulang yang masih sedikit, kita masih bisa menanganinya dengan program di atas. Tetapi jika jumlah perintah itu dijalankan 1000 kali, tentu hal ini tidak praktis. Yang kita butuhkan adalah cara untuk menulis perintah berulang tanpa menulis kode yang banyak.</p>
+	<h2>For</h2>
+	<p>Statement for memungkinkan kita untuk mengulang perintah berulang-ulang kali. Dengan menggunakan for kita dapat mengubah kode yang sebelumnya kita buat.</h2>>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	i := 1
+	for i<=5 {
+		fmt.Println(i)
+		i = i + 1
+	}
+}
+		</pre>
+		
+	</code>
+	<p>Langkah awal untuk membuat statement for yaitu mendefinisikan variabel iterasinya. Contohnya pada program kita menuliskan i := 1 yang memuat variabel yang akan kita tampilkan. Kemudian mengetikkan keyword for untuk membuat loop dilanjutkan dengan syarat yang ketika bernilai true akan dijalankan dan ketika bernilai false akan dihentikan loopnya. Kemudian statement yang ingin dijalankan ditutup dengan kurung { }. Di dalam for sebaiknya ada perintah yang merubah nilai variabel iterasinya, contohnya perintah i = i + 1, hal ini berguna agar program tidak selamanya terjebak di dalam loop.<br>
+
+	Bentuk statement for dapat ditulis:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	for i := 1; i < 5; i++ {
+		fmt.Println(i)
+	}
+}
+		</pre>
+		
+	</code>
+
+	<p>Perhatikan bahwa i++ sama saja dengan i = i + 1.</p>
+
+	<h2>If</h2>
+	<p>Misalkan kita menginginkan program yang sudah kita buat dapat menuliskan apakah bilangan tersebut ganjil atau genap, maka kita dapat menggunakan statement if. Pertama-tama, kita tentukan sisa pembagian bilangan tersebut terhadap 2. Jika pembagiannya tidak ada sisa, maka bilangan tersebut genap, dan sebaliknya. Sisa pembagian menggunakan syntax a % b, contohnya 3 % 2, akan menghasilkan 1. Kita buat kode sebagai berikut:</h2>
+	<code>
+		<pre>
+if i % 2 == 0 {
+	//genap
+} else {
+	//ganjil
+}
+		</pre>
+		
+	</code>
+
+	<p>Statement if diikuti dengan syarat lalu kurung { }. Setelah itu dapat diikuti dengan statement else if dan seterusnya sampai else.<br>
+
+	Bentuk program jika kita modifikasi dengan statement if menjadi:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	for i := 1; i <= 5; i++ {
+		if i % 2 == 0 {
+			fmt.Println(i, "genap")
+		} else {
+			fmt.Println(i, "ganjil")
+		}
+	}
+}
+		</pre>
+		
+	</code>
+	<h2>Switch</h2>
+	<p>Sekarang, kita menginginkan program menulis angka dan juga namanya. Dengan menggunakan if-else, kita buat kode:</p>
+	<code>
+		<pre>
+if i == 1 {
+	fmt.Println("Satu")
+} else if i == 2 {
+	fmt.Println("Dua")
+} else if i == 3 {
+	fmt.Println("Tiga")
+} else if i == 4 {
+	fmt.Println("Empat")
+} else if i == 5 {
+	fmt.Println("Lima")
+}
+		</pre>
+		
+	</code>
+
+	<p>menulis kode di atas cukup melelahkan, maka ada cara yang mempermudah penulisan kode di atas dengan menggunakan switch:</p>
+	<code>
+		<pre>
+switch i {
+	case 1: fmt.Println("Satu")
+	case 2: fmt.Println("Dua")
+	case 3: fmt.Println("Tiga")
+	case 4: fmt.Println("Empat")
+	case 5: fmt.Println("Lima")
+	default: fmt.Println("Angka tidak dikenal")
+}
+		</pre>
+		
+	</code>
+
+	<p>Statement switch diawali dengan keyword switch diikuti dengan ekspresinya (contoh dalam kode ini i) dan kemudian tanda kurung { } yang berisi kumpulan kasus-kasus yang diawali dengan keyword case kemudian nilai ekspresi dan titik dua, disertai dengan perintah. Nilai dari ekspresi akan dicocokkan dengan kasusnya.</p>
+</body>
+</html>

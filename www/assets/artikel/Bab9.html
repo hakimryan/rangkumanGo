@@ -1,0 +1,231 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Struct dan Interface</h1>
+	<p>Perhatikan program berikut:</p>
+	<pre>
+		<code class="language-go">
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func distance(x1, y1, x2, y2 float64) float64 {
+	a := x2 - x1<br>
+	b := y2 - y1<br>
+	return math.Sqrt(a*a + b*b)<br>
+}
+
+func rectangleArea(x1, y1, x2, y2 float64) float64 {
+	l := distance(x1, y1, x1, y2)<br>
+	w := distance(x1, y1, x2, y1)<br>
+	return l * w<br>
+}
+
+func circleArea(x, y, r float64) float64 {
+	return math.Pi * r*r
+}
+
+func main() {
+	var rx1, ry1 float64 = 0, 0<br>
+	var rx2, ry2 float64 = 10, 10<br>
+	var cx, cy, cr float64 = 0, 0, 5<br><br>
+
+	fmt.Println(rectangleArea(rx1, ry1, rx2, ry2))<br>
+	fmt.Println(circleArea(cx, cy, cr))<br>
+}
+		</code>
+	</pre>
+	<p>
+		Mari kita gunakan konsep Struct untuk program di atas.<br>
+		Kita representasikan data-data lingkaran sebagai berikut:
+	</p>
+
+	<pre>
+		<code>
+type Circle struct {
+	x float64
+	y float64
+	r float64
+}
+		</code>
+	</pre>
+	<p>
+		Keyword type membuat tipe baru, pada contoh di atas tipe baru ini adalah Circle. Keyword struct mendefinisikan bahwa kita membuat tipe struct yang berisi data-data.<br>
+		Tipe Circle dapat disederhanakan pengetikannya menjadi:
+	</p>
+	<code>
+		<pre>
+type Circle struct {<br>
+	x, y, r float64<br>
+}<br>
+</pre>		
+	</code>
+	<p>Untuk membuat variabel, kita ketik</p>
+	<code>var c Circle</code>
+	<p>atau</p>
+	<code>c := new(Circle)</code>
+	<p>atau</p>
+	<code>c := Circle{x: 0, y: 0, r: 5}</code>
+	<p>atau</p>
+	<code>c := Circle{0, 0, 5}</code>
+	<p>Kita dapat mengakses data dalam struct menggunakan . (titik).</p>
+	<code>
+		<pre>
+fmt.Println(c.x, c.y, c.r)<br>
+c.x = 10<br>
+c.y = 5	
+		</pre>
+		
+	</code>
+	<p>Dan akhirnya, kita modifikasi fungsi circleArea</p>
+	<code>
+		<pre>
+func circleArea(c Circle) float64 {<br>
+	return math.Pi * c.r*c.r <br>
+}
+		</pre>
+		
+	</code>
+	<p>di fungsi main kita modifikasi:</p>
+	<code>
+		<pre>
+c := Circle{0, 0, 5}
+fmt.Println(circleArea(c))
+		</pre>
+		
+	</code>
+	<h2>Method</h2>
+	<p>Kita gunakan teknik yang dinamakan method untuk memodifikasi lagi fungsi circleArea</p>
+	<code>
+		<pre>
+func (c *Circle) area() float64 {<br><br>
+	return math.Pi * c.r*c.r<br>
+}
+		</pre>
+		
+	</code>
+	<p>Dan selanjutnya kita gunakan teknik method untuk rectangleArea:</p>
+	<code>
+		<pre>
+type Rectangle struct {<br>
+	x1, y1, x2, y2 float64<br>
+}<br><br>
+
+func (r *Rectangle) area() float64 {<br>
+	l := distance(r.x1, r.y1, r.x1, r.y2)<br>
+	w := distance(r.x1, r.y1, r.x2, r.y1)<br>
+	return l * w<br>
+}
+		</pre>
+		
+	</code>
+	<p>di fungsi main:</p>
+	<code>
+		<pre>
+r := Rectangle{0, 0, 10, 10}<br>
+fmt.Println(r.area())
+		</pre>
+		
+	</code>
+	<p>Kode akhir dari programnya adalah:</p>
+	<code>
+		<pre>
+package main <br><br>
+
+import (<br>
+	"fmt"<br>
+	"math"<br>
+)<br><br>
+
+type Rectangle struct {<br>
+	x1, y1, x2, y2 float64<br>
+}<br><br>
+
+type Circle struct {<br>
+	x, y, r float64<br>
+}<br><br>
+
+func distance(x1, y1, x2, y2 float64) float64 {<br>
+	a := x2 - x1<br>
+	b := y2 - y1<br>
+	return math.Sqrt(a*a + b*b)<br>
+}<br><br>
+
+func (c *Circle) area() float64 {<br>
+	return math.Pi * c.r*c.r <br>
+}<br><br>
+
+func (r *Rectangle) area() float64 {<br>
+	l := distance(r.x1, r.y1, r.x1, r.y2)<br>
+	w := distance(r.x1, r.y1, r.x2, r.y1)<br>
+	return l * w<br>
+}<br><br>
+
+func main() {<br>
+	c := Circle{0, 0, 5}<br>
+	r := Rectangle{0, 0, 10, 10}<br>
+	fmt.Println(r.area())<br>
+	fmt.Println(c.area())<br>
+}
+		</pre>
+		
+	</code>
+
+	<h2>Interface</h2>
+	</p>Luas persegi panjang dan lingkaran memakai method yang sama. Kita dapat menggunakan interface, contohnya:</p>
+	<code>
+		<pre>
+type Shape interface {<br>
+	area() float64<br>
+}
+		</pre>
+		
+	</code>
+	<p>Seperti struct, interface juga dibuat menggunakan keyword type, diikuti nama, dan keyword interface.<br>
+	Kemudian:</p>
+	<code>
+		<pre>
+func totalArea(shapes ...Shape) float64 {<br>
+	var area float64<br>
+	for _, s := range shapes {<br>
+		area += s.area()<br>
+	}<br>
+	return area<br>
+}
+		</pre>
+		
+	</code>
+	<p>Fungsi di atas dapat kita panggil:</p>
+	<code>
+		<pre>
+fmt.Println(totalArea(&amp c, &r))<br><br>
+
+Interface juga dapat diisi:<br><br>
+
+type MultiShape struct {<br>
+	shapes []Shape<br>
+}
+		</pre>
+		
+	</code>
+	<p>Kemudian:</p>
+	<code>
+		<pre>
+func (m *MultiShape) area() float64 {<br>
+	var area float64<br>
+	for _, s := range m.shapes {<br>
+		area += s.area()<br>
+	{<br>
+	return area<br>
+}
+		</pre>
+		
+	</code>
+	<p>Dan sekarang, MultiShape dapat memiliki Circle, Rectangle, atau bentuk lainnya.</p>
+</body>
+</html>

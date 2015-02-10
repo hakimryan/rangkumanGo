@@ -1,0 +1,194 @@
+Array, Slice, dan Map
+
+Array
+Sebuah array merupakan sekumpulan variabel dengan tipe sama dan panjang tertentu. Syntax untuk mendeklarasikan array adalah:
+
+var x [5]int
+
+x di sini merupakan contoh array terdiri dari 5 variabel bertipe int.
+
+Mari kita jalankan program berikut ini
+
+package main 
+
+import "fmt"
+
+func main() {
+	var x [6]int
+	x[5] = 240
+	fmt.Println(x)
+}
+
+Di dalam Go, indeks array diawali dari 0, jadi x[5] merupakan elemen array ke-6.
+
+Mari kita lihat program untuk menghitung rata-rata suatu array di bawah ini.
+
+package main 
+
+import "fmt"
+
+func main() {
+	var x [3]float64
+	x[0] = 73
+	x[1] = 45
+	x[2] = 34
+
+	var total float64 = 0
+	for i := 0; i < 3; i++ {
+		total += x[i]
+	}
+	fmt.Println(total / 3)
+}
+
+Program di atas dapat dimodifikasi untuk menghitung rataan array yang ukurannya bukan 3.
+
+package main 
+
+import "fmt"
+
+func main() {
+	var x [3]float64
+	x[0] = 73
+	x[1] = 45
+	x[2] = 34
+
+	var total float64 = 0
+	for i := 0; i < len(x); i++ {
+		total += x[i]
+	}
+	fmt.Println(total / len(x))
+}
+
+len(x) akan menghitung ukuran dari suatu array. Hasil dari len(x) berupa nilai tipe int. Karena pembagian total / len(x) melibatkan nilai yang berbeda tipe, maka tipe len(x) harus diubah sehingga tipenya sama dengan variabel total. Sehingga harus dimodifikasi menjadi:
+
+fmt.Println(total / float64(len(x)))
+
+Selain itu, program masih bisa dimodifikasi menjadi
+
+for i, value := range x {
+	total += value
+}
+
+Dalam hal ini, i merepresentasikan posisi aktual dari suatu array dan value sama saja dengan x[i]. Keyword range yang diikuti dengan nama variabel digunakan untuk menentukan jumlah iterasinya.
+
+Akan tetapi ketika di-compile, akan muncul error. Sehingga kita gunakan tanda _ (underscore) untuk menggantikan i
+
+for _, value := range x {
+	total += value
+}
+
+Membuat array di Go dapat dipersingkat dengan cara:
+
+x := [5]float64{77, 35, 93, 23, 76}
+
+atau
+
+x := [3]float64{
+	38,
+	39,
+	29.
+}
+
+Slice
+Slice merupakan bagian dari suatu array. Slice sama halnya dengan array, memiliki indeks dan ukuran. Tetapi ukuran slice dapat berubah-ubah. Contoh:
+
+var y []float64
+
+perhatikan bahwa di dalam kurung siku tidak ada nilai ukuran, dan ini yang membedakan slice dengan array.
+
+Untuk membuat slice, kita gunakan fungsi make:
+
+x := make([]float64, 5)
+
+Perintah di atas membuat slice terdiri dari array tipe float64 berukuran 5. Ukuran suatu slice tidak boleh lebih dari ukuran array yang terkait.
+
+Metode lain untuk membuat slice yaitu menggunakan format [low : high]
+
+vektor := []float64{1, 2, 3, 4, 5, 6}
+x := vektor[0 : 4]
+
+akan menghasilkan
+
+x = [1, 2, 3, 4]
+
+Fungsi-fungsi slice
+Append
+Contoh penggunaan fungsi append:
+
+package main 
+
+import "fmt"
+
+func main() {
+	slice1 := []int{0,1,2,3}
+	slice2 := append(slice1, 4, 5)
+	fmt.Println(slice1, slice2)
+}
+
+akan menghasilkan
+
+[0 1 2 3] [0 1 2 3 4 5]
+
+Copy
+Contoh penggunaan fungsi copy:
+
+package main 
+
+import "fmt"
+
+func main() {
+	slice1 := []int{4,5,6}
+	slice2 := make([]int,2)
+	copy(slice2, slice1)
+	fmt.Println(slice1, slice2)
+}
+
+akan menghasilkan
+[4 5 6] [4 5]
+
+Map
+Map merupakan kumpulan pasangan key-value. Disebut juga sebagai associative array, hash table, atau dictinoary. Map digunakan untuk mengakses nilai dengan menggunakan kata kunci yang sesuai. Contoh:
+
+var x map[string]int
+
+variabel x di atas bertipe map yang memetakan string dengan tipe int.
+
+Lihat program berikut.
+
+package main 
+
+import "fmt"
+
+func main() {
+	var x map[string]int
+	x["key"] = 10
+	fmt.Println(x)
+}
+
+akan muncul error:
+
+panic: assignment to entry in nil map
+
+main.main()
+	D:/apps/golang/src/array/coba06.go:7 +0x5d
+exit status 2
+
+Program di atas menghasilkan runtime error, yang artinya error yang terjadi saat program berjalan.
+
+Program di atas harus diperbaiki:
+
+package main 
+
+import "fmt"
+
+func main() {
+	x := make(map[string]int)
+	x["key"] = 10
+	fmt.Println(x["key"])
+}
+
+keluaran program di atas adalah 10. 
+
+Kita dapat menghapus elemen di map dengan cara:
+
+delete(x, 1)

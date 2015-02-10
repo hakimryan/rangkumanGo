@@ -1,0 +1,98 @@
+Variabel
+
+Sampai saat ini, kita baru membuat program yang hanya langsung memasukkan nilai. Akan tetapi, program seperti ini tidak efektif. Kita dapat menggunakan variabel untuk membuat sebuah program lebih baik.
+
+Variabel merupakan lokasi penyimpanan, dengan tipe dan nama tertentu. Program Hello World dapat kita ubah dengan menggunakan konsep variabel.
+
+package main 
+
+import "fmt"
+
+func main()	{
+	var x string = "Hello, world."
+	fmt.Println(x)
+}
+
+di dalam program ini, variabel x menggantikan kata "Hello, world." Keyword var merupakan kunci untuk membuat suatu variabel baru. Tanda = merupakan perintah assignment, artinya memasukkan nilai ke dalam variabel. Perhatikan program berikut:
+
+package main 
+
+import "fmt"
+
+func main() {
+	var x string
+	x = "first "
+	fmt.Println(x)
+	x = "second"
+	fmt.Println(x)
+}
+
+akan muncul hasil 
+
+first
+second
+
+variabel x awalnya berupa string bernilai "first ", kemudian pada perintah baru, nilai x berubah menjadi "second".
+
+Selain itu, assignment dapat berupa:
+
+package main 
+
+import "fmt"
+
+func main() {
+	var x string
+	x = "first "
+	fmt.Println(x)
+	x = x + "second"
+	fmt.Println(x)
+}
+
+akan muncul hasil
+
+first
+first second
+
+Perintah seperti x = x + "second" dapat disingkat menjadi x += "second".
+
+Deklarasi variabel di Go juga dapat dilakukan dengan cara:
+
+x := "Hello, world."
+
+Cara penamaan variabel
+Memberi nama suatu variabel merupakan hal penting dalam pemrograman. Nama variabel dalam bahasa Go harus diawali dengan huruf dan dapat mengandung huruf, angka, atau _ (underscore). Sebaiknya, penamaan variabel harus memiliki arti sehingga bisa menggambarkan maksud dari penggunaan variabel tersebut.
+
+Ruang lingkup variabel (Scope)
+Suatu variabel berada di ruang lingkup dalam tanda kurung { }, dan hanya bisa diakses oleh fungsi yang memuat kurung tersebut. Jika deklarasi variabel diletakkan di luar kurung, maka fungsi lain dapat mengakses variabel tersebut.
+
+Konstanta
+Penulisan suatu nilai yang tidak boleh berubah misalkan nilai pi, dapat dilakukan dengan menggunakan keyword const. Contohnya:
+
+const pi float = 3.14
+
+Mendefinisikan variabel banyak
+Untuk membuat banyak variabel, dapat dilakukan dengan cara:
+
+var (
+	a = 5
+	b = 6
+	c = 20
+)
+
+Contoh program: menghitung luas lingkaran
+
+package main 
+
+import "fmt"
+
+const pi float64 = 3.14
+
+func main() {
+	fmt.Print("Masukkan jari-jari: ")
+	var radius float64
+	fmt.Scanf("%f", &radius)
+
+	luas := radius * radius * pi
+
+	fmt.Println(luas)
+}

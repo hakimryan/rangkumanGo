@@ -1,0 +1,128 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Variabel</h1>
+
+	<p>Sampai saat ini, kita baru membuat program yang hanya langsung memasukkan nilai. Akan tetapi, program seperti ini tidak efektif. Kita dapat menggunakan variabel untuk membuat sebuah program lebih baik.<br>
+
+	Variabel merupakan lokasi penyimpanan, dengan tipe dan nama tertentu. Program Hello World dapat kita ubah dengan menggunakan konsep variabel.</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main()	{
+	var x string = "Hello, world."
+	fmt.Println(x)
+}
+		</pre>		
+	</code>
+
+	<p>di dalam program ini, variabel x menggantikan kata "Hello, world." Keyword var merupakan kunci untuk membuat suatu variabel baru. Tanda = merupakan perintah assignment, artinya memasukkan nilai ke dalam variabel. Perhatikan program berikut:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	var x string
+	x = "first "
+	fmt.Println(x)
+	x = "second"
+	fmt.Println(x)
+}
+		</pre>		
+	</code>
+
+	<p>akan muncul hasil</p>
+	<code>
+		<pre>
+first
+second
+		</pre>
+		
+	</code>
+
+	<p>variabel x awalnya berupa string bernilai "first ", kemudian pada perintah baru, nilai x berubah menjadi "second".<br>
+
+	Selain itu, assignment dapat berupa:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	var x string
+	x = "first "
+	fmt.Println(x)
+	x = x + "second"
+	fmt.Println(x)
+}
+		</pre>		
+	</code>
+
+	<p>akan muncul hasil</p>
+	<code>
+		<pre>
+first
+first second
+		</pre>
+		
+	</code>
+
+	<p>Perintah seperti x = x + "second" dapat disingkat menjadi x += "second".<br>
+
+	Deklarasi variabel di Go juga dapat dilakukan dengan cara:</p>
+	<code>x := "Hello, world."</code>
+
+	<h2>Cara penamaan variabel</h2>
+	<p>Memberi nama suatu variabel merupakan hal penting dalam pemrograman. Nama variabel dalam bahasa Go harus diawali dengan huruf dan dapat mengandung huruf, angka, atau _ (underscore). Sebaiknya, penamaan variabel harus memiliki arti sehingga bisa menggambarkan maksud dari penggunaan variabel tersebut.</p>
+
+	<h2>Ruang lingkup variabel (Scope)</h2>
+	<p>Suatu variabel berada di ruang lingkup dalam tanda kurung { }, dan hanya bisa diakses oleh fungsi yang memuat kurung tersebut. Jika deklarasi variabel diletakkan di luar kurung, maka fungsi lain dapat mengakses variabel tersebut.</p>
+
+	<h2>Konstanta</h2>
+	<p>Penulisan suatu nilai yang tidak boleh berubah misalkan nilai pi, dapat dilakukan dengan menggunakan keyword const. Contohnya:</p>
+
+	<code>const pi float = 3.14</code>
+
+	<h2>Mendefinisikan variabel banyak</h2>
+	<p>Untuk membuat banyak variabel, dapat dilakukan dengan cara:</p>
+	<code>
+		<pre>
+var (
+a = 5
+b = 6
+c = 20
+)
+		</pre>
+		
+	</code>
+
+	<p>Contoh program: menghitung luas lingkaran</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+const pi float64 = 3.14
+
+func main() {
+	fmt.Print("Masukkan jari-jari: ")
+	var radius float64
+	fmt.Scanf("%f", &radius)
+
+	luas := radius * radius * pi
+
+	fmt.Println(luas)
+}
+		</pre>		
+	</code>
+</body>
+</html>

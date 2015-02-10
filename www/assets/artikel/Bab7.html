@@ -1,0 +1,266 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Fungsi</h1>
+
+	<p>Mari kita simak kembali program untuk menghitung rataan.</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	xs := []float64{84, 89, 93, 79, 87}
+
+	total := 0.0
+	for _, v := range xs {
+		total += v
+	}
+	fmt.Println(total/float64(len(xs)))
+}package main 
+
+import "fmt"
+
+func main() {
+	xs := []float64{84, 89, 93, 79, 87}
+
+	total := 0.0
+	for _, v := range xs {
+		total += v
+	}
+	fmt.Println(total/float64(len(xs)))
+}
+		</pre>
+		
+	</code>
+
+	<p>Kita buat fungsi bernama average, letakkan sebelum fungsi main.</p>
+	<code>
+		<pre>
+func average(xs []float64) float64 {
+	panic("Not implemented.")
+}
+		</pre>		 
+	</code>
+
+	<p>Sebuah fungsi diawali dengan keyword func dan diikuti dengan nama fungsinya. Parameter atau input atau argumen dari fungsi didefinisikan dengan nama type, nama type, ... Setelah parameter, ada keluaran fungsi.<br>
+
+	Fungsi berisi set instruksi yang berada di dalam kurung { }. Contohnya pada program di atas kita memanggil panic yang menyebabkan runtime error.<br>
+
+	Sekarang kita masukkan instruksi untuk menghitung rataan ke dalam fungsi average.</p>
+	<code>
+		<pre>
+func average(xs []float64) float64 {
+total := 0.0
+for _, v := range xs {
+	total += v
+}
+return total/float64(len(xs))
+}
+		</pre>		 
+	</code>
+
+	<p>dan modifikasi fungsi main. </p>
+	<code>
+		<pre>
+func main() {
+	xs := []float64{84, 89, 93, 79, 87}
+	fmt.Println(average(xs))
+}
+		</pre>
+		
+	</code>
+
+	<p>Kita dapat menggunakan format berikut untuk menulis keluaran fungsi.</p>
+	<code>
+		<pre>
+func f() (r int) {
+	r = 1
+	return
+}
+		</pre>
+		
+	</code>
+
+	<p>Selain itu, fungsi dapat menghasilkan keluaran lebih dari satu.</p>
+	<code>
+		<pre>
+func f() (x int, y int) {
+	x := 1
+	y := 2
+	return
+}
+		</pre>
+		
+	</code>
+
+	<p>dan cara memanggilnya</p>
+	<code>x, y := f()</code>
+
+	<h2>Fungsi Variadic</h2>
+
+	<p>Perhatikan kode berikut ini</p>
+	<code>
+		<pre>
+func tambah(args ...int) int {
+	total := 0
+	for _, v := range args {
+		total += v
+	}
+	return total
+}
+func main() {
+	fmt.Println(tambah(1,2,3,4,5))
+}
+		</pre>
+		
+	</code>
+	<p>Dengan menggunakan ... sebelum tipe masukan kita dapat memasukkan input sebanyak yang kita mau. Kita dapat memasukkan input berupa slice, contohnya:</p>
+	<code>
+		<pre>
+func main() {
+	xs := []int{1,2,3,4,5}
+	fmt.Println(tambah(xs...))
+}
+		</pre>
+		
+	</code>
+
+	<h2>Closure</h2>
+	<p>Fungsi dalam fungsi juga dapat kita buat, contohnya:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	tambah := func(x, y int) int {
+		return x + y
+	}
+	fmt.Println(tambah(2,4))
+}
+		</pre>
+		
+	</code>
+
+	<p>variabel add bernilai suatu fungsi. Fungsi ini dapat mengakses variabel lokal dan variabel di fungsi ini juga dapat diakses.
+
+	Keluaran (return) dari suatu fungsi juga dapat menggunakan fungsi.</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func buatBilanganGenap() func() uint {
+	i := uint(0)
+	return func() (ret uint) {
+		ret = i
+		i += 2
+		return
+	}
+}
+
+func main() {
+	genap := buatBilanganGenap()
+	fmt.Println(genap())
+	fmt.Println(genap())
+	fmt.Println(genap())
+}
+		</pre>
+		
+	</code>
+
+	<h2>Rekursi</h2>
+	<p>Fungsi juga dapat memanggil fungsi itu sendiri. Hal ini disebut fungsi rekursif. Contohnya menghitung faktorial.</p>
+	<code>
+		<pre>
+func factorial(x uint) uint {
+	if x == 0 {
+		return 1
+	}
+
+	return x * factorial(x-1)
+}
+		</pre>
+		
+	</code>
+
+	<p>Pada bagian return, factorial memanggil fungsi factorial sendiri.</p>
+
+	<h2>Defer, Panic, dan Recover</h2>
+
+	<p>Go memiliki statement khusus yaitu defer yang menjalankan perintah setelah semua perintah di dalam fungsi selesai. Contoh:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func first() {
+	fmt.Println("1st")
+}
+func second() {
+	fmt.Println("2nd")
+}
+func main() {
+	defer second()
+	first()
+}
+		</pre>
+		
+	</code>
+
+	<p>Program di atas akan menampilkan 1st, kemudian 2nd. Dasarnya, defer memindahkan perintah ke bagian akhir fungsi.<br>
+
+	Defer biasanya digunakan untuk membuang resource yang tidak dipakai lagi, contohnya ketika membuka file:</p>
+	<code>
+		<pre>
+f, _ := os.Open(filename)
+defer f.Close()
+		</pre>
+		
+	</code>
+
+	<p>Keuntungannya (1) perintah Close dekat dengan perintah Open sehingga mudah dikenal, (2) jika fungsi kita memiliki keluaran lebih dari satu, Close akan dijalankan sebelum itu, (3) fungsi yang di-defer akan berjalan meskipun terjadi run-time panic.</p>
+
+	<h2>Panic dan Recover</h2>
+	<p>Panic dibuat agar program berhenti, sedangkan recover akan menghentikan panic dan mengembalikan nilai yang dibuat ketika terjadi panic. Contohnya:</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	panic("PANIC")
+	str := recover()
+	fmt.Println(str)
+}
+		</pre>
+		
+	</code>
+
+
+	<p>akan tetapi, perintah recover tidak akan dijalankan. Kita harus memasukkan perintah defer pada recover.</p>
+	<code>
+		<pre>
+package main 
+
+import "fmt"
+
+func main() {
+	defer func() {
+		str := recover()
+		fmt.Println(str)
+	}()
+	panic("PANIC")
+}
+		</pre>
+	</code>
+</body>
+</html>

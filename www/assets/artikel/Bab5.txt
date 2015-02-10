@@ -1,0 +1,117 @@
+Control Structure
+
+Setelah mengetahui cara penggunaan variabel, sekarang kita akan mempelajari cara penggunaan control structure dalam Go. Contoh kita akan menulis angka dari 1 sampai 5.
+
+package main 
+
+import "fmt"
+
+func main() {
+	fmt.Println(1)
+	fmt.Println(2)
+	fmt.Println(3)
+	fmt.Println(4)
+	fmt.Println(5)
+}
+
+atau
+
+package main 
+
+import "fmt"
+
+func main() {
+	fmt.Println(`1
+2
+3
+4
+5`)
+}
+
+Untuk perintah berulang yang masih sedikit, kita masih bisa menanganinya dengan program di atas. Tetapi jika jumlah perintah itu dijalankan 1000 kali, tentu hal ini tidak praktis. Yang kita butuhkan adalah cara untuk menulis perintah berulang tanpa menulis kode yang banyak.
+
+For
+Statement for memungkinkan kita untuk mengulang perintah berulang-ulang kali. Dengan menggunakan for kita dapat mengubah kode yang sebelumnya kita buat.
+
+package main 
+
+import "fmt"
+
+func main() {
+	i := 1
+	for i<=5 {
+		fmt.Println(i)
+		i = i + 1
+	}
+}
+
+Langkah awal untuk membuat statement for yaitu mendefinisikan variabel iterasinya. Contohnya pada program kita menuliskan i := 1 yang memuat variabel yang akan kita tampilkan. Kemudian mengetikkan keyword for untuk membuat loop dilanjutkan dengan syarat yang ketika bernilai true akan dijalankan dan ketika bernilai false akan dihentikan loopnya. Kemudian statement yang ingin dijalankan ditutup dengan kurung { }. Di dalam for sebaiknya ada perintah yang merubah nilai variabel iterasinya, contohnya perintah i = i + 1, hal ini berguna agar program tidak selamanya terjebak di dalam loop.
+
+Bentuk statement for dapat ditulis:
+
+package main 
+
+import "fmt"
+
+func main() {
+	for i := 1; i < 5; i++ {
+		fmt.Println(i)
+	}
+}
+
+Perhatikan bahwa i++ sama saja dengan i = i + 1.
+
+If
+Misalkan kita menginginkan program yang sudah kita buat dapat menuliskan apakah bilangan tersebut ganjil atau genap, maka kita dapat menggunakan statement if. Pertama-tama, kita tentukan sisa pembagian bilangan tersebut terhadap 2. Jika pembagiannya tidak ada sisa, maka bilangan tersebut genap, dan sebaliknya. Sisa pembagian menggunakan syntax a % b, contohnya 3 % 2, akan menghasilkan 1. Kita buat kode sebagai berikut:
+
+if i % 2 == 0 {
+	//genap
+} else {
+	//ganjil
+}
+
+Statement if diikuti dengan syarat lalu kurung { }. Setelah itu dapat diikuti dengan statement else if dan seterusnya sampai else.
+
+Bentuk program jika kita modifikasi dengan statement if menjadi:
+
+package main 
+
+import "fmt"
+
+func main() {
+	for i := 1; i <= 5; i++ {
+		if i % 2 == 0 {
+			fmt.Println(i, "genap")
+		} else {
+			fmt.Println(i, "ganjil")
+		}
+	}
+}
+
+Switch
+Sekarang, kita menginginkan program menulis angka dan juga namanya. Dengan menggunakan if-else, kita buat kode:
+
+if i == 1 {
+	fmt.Println("Satu")
+} else if i == 2 {
+	fmt.Println("Dua")
+} else if i == 3 {
+	fmt.Println("Tiga")
+} else if i == 4 {
+	fmt.Println("Empat")
+} else if i == 5 {
+	fmt.Println("Lima")
+}
+
+menulis kode di atas cukup melelahkan, maka ada cara yang mempermudah penulisan kode di atas dengan menggunakan switch:
+
+switch i {
+	case 1: fmt.Println("Satu")
+	case 2: fmt.Println("Dua")
+	case 3: fmt.Println("Tiga")
+	case 4: fmt.Println("Empat")
+	case 5: fmt.Println("Lima")
+	default: fmt.Println("Angka tidak dikenal")
+}
+
+Statement switch diawali dengan keyword switch diikuti dengan ekspresinya (contoh dalam kode ini i) dan kemudian tanda kurung { } yang berisi kumpulan kasus-kasus yang diawali dengan keyword case kemudian nilai ekspresi dan titik dua, disertai dengan perintah. Nilai dari ekspresi akan dicocokkan dengan kasusnya.

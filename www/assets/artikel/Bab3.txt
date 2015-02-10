@@ -1,0 +1,61 @@
+Type
+
+Sebelumnya kita sudah membuat program Hello World, di sana telah disinggung string. String merupakan salah satu tipe data. Tipe data membagi data menjadi kumpulan nilai-nilai yang serupa, kemudian mendeskripsikan operasi apa saja yang bisa dilakukan dan mendefinisikan cara mereka disimpan. Karena tipe data merupakan konsep yang cukup sulit dipahami, kita akan melihat dari beberapa sudut pandang sebelum kita mengimplementasikannya ke Go.
+
+Dalam matematika kita sering mendengar himpunan. Contoh: himpunan bilangan real, atau bilangan natural. Tiap anggota himpunan memiliki sifat yang sama dengan anggota lainnya. Contohnya, semua bilangan natural memiliki sifat asosiatif: contohnya (1 + 2) + 3 = 1 + (2 + 3). Dalam hal ini, himpunan mirip dengan tipe data dalam bahasa pemrograman karena setiap nilai memiliki sifat yang sama dengan nilai lainnya.
+
+Go merupakan bahasa pemrograman yang tiap variabelnya tidak dapat diganti tipenya.
+
+Type built-in di Go yaitu numbers, string, boolean.
+
+Numbers
+Go memiliki beberapa type yang berbeda untuk merepresentasikan angka. Secara umum, tipe numbers dibagi menjadi integer dan floating-point.
+
+Integer
+Integer merupakan angka tanpa desimal, seperti 1, 2, 3, 0, -1, -3, dst. Jenis dari tipe integer yaitu uint8, uint32, uint64, int8, int16, int32, dan int64. 8, 16, 32, 64 menunjukkan seberapa banyak bit. uint kependekan dari "unsigned integer." sedangkan int artinya "signed integer." uint hanya berisi bilangan integer positif, sedangkan int berisi bilangan positif dan negatif.
+
+Floating-point
+Angka floating-point merupakan angka yang memiliki nilai desimal. Contohnya 1.00, 3.14, 0.63, dsb. Angka floating-point merupakan bialngan non-eksak. Go memiliki dua tipe float: float32 dan float64, dan juga mendukung bilangan kompleks: complex64 dan complex128.
+
+mari kita buat contoh programnya dengan membuat folder baru dengan nama variabel dan buatlah file bernama main.go, dan ketik di file tersebut:
+
+package main 
+
+import "fmt"
+
+func main() {
+	fmt.Println("10 + 1 = ", 10 + 1)
+}
+
+kemudian jalankan program tersebut:
+
+go run main.go
+
+akan muncul tulisan
+
+10 + 1 = 11
+
+Coba kita gunakan bilangan float
+
+package main 
+
+import "fmt"
+
+func main() {
+	fmt.Println("10 + 1 = ", 10 + 1)
+	fmt.Println("10 + 1 = ", 10.0 + 1.0)
+}
+
+hasil dari kedua operasi di atas menghasilkan tampilan yang sama.
+
+Operator untuk number adalah + (penjumlahan), - (pengurangan), * (perkalian), / (pembagian), dan % (sisa bagi).
+
+String
+String merupakan barisan karakter dengan panjang tertentu. String digunakan untuk merepresentasikan teks. Satu karakter di Go biasanya disimpan sebesar 1 byte, tetapi beberapa karakter bahasa lain direpresentasikan lebih dari satu byte.
+
+String dapat dibuat dengan menggunakan tanda petik ganda seperti "Hello, world" dan tanda petik 'Hello, world.' Perbedaannya yaitu string dengan tanda petik ganda tidak boleh memiliki baris baru dan memungkinkan penggunaan escape character seperti \n (newline) dan \t (tab).
+
+Untuk mengetahui panjang suatu string, dapat digunakan fungsi len(), contoh len("Hello, world").
+
+Boolean
+Nilai boolean merepresentasikan kebenaran suatu pernyataan, yaitu true atau false. Operator untuk boolean yaitu && (and), || (or), dan ! (not).
